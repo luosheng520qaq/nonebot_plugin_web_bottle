@@ -12,7 +12,7 @@ import io
 
 driver = nonebot.get_driver()
 global_config = driver.config
-config = Config.parse_obj(global_config)
+config = nonebot.get_plugin_config(Config)
 max_bottle_comments = config.max_bottle_comments
 bottle_msg_uname = config.bottle_msg_uname
 bottle_msg_gname = config.bottle_msg_gname

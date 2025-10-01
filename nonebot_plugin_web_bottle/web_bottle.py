@@ -5,7 +5,7 @@ import aiofiles
 import httpx
 import ssl
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import get_app, get_driver, require
+from nonebot import get_app, get_driver, require, get_plugin_config
 from nonebot.log import logger
 from .config import Config
 from . import data_deal
@@ -47,11 +47,9 @@ if not isinstance(app, FastAPI):
     raise RuntimeError(msg)  # noqa: TRY004
 
 driver = get_driver()
-config = driver.config
-config: Config = Config.parse_obj(config)
+config: Config = get_plugin_config(Config)
 
 gzip_level = config.gzip_level
-print(gzip_level)
 # 添加会话中间件
 app.add_middleware(SessionMiddleware, secret_key=secrets.token_hex(32))
 app.add_middleware(GZipMiddleware, minimum_size=100, compresslevel=int(gzip_level))

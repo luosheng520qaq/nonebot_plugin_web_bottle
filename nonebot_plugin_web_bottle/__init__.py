@@ -5,7 +5,7 @@ from nonebot.adapters.onebot.v11 import Message, GroupMessageEvent, Bot
 from nonebot.adapters.onebot.v11.helpers import Cooldown
 from nonebot.plugin import PluginMetadata
 from nonebot.params import CommandArg
-from nonebot import on_command
+from nonebot import on_command, get_plugin_config
 import nonebot
 import base64
 from .web_bottle import Bottle, id_add, serialize_message
@@ -15,14 +15,13 @@ from . import data_deal
 
 driver = nonebot.get_driver()
 global_config = driver.config
-config = Config.parse_obj(global_config)
+config = get_plugin_config(Config)
 bottle_msg_split = config.bottle_msg_split
 max_bottle_liens = config.max_bottle_liens
 max_bottle_word = config.max_bottle_word
 max_bottle_pic = config.max_bottle_pic
 embedded_help = config.embedded_help
 coll_time = config.cooling_time
-Config = config
 
 __plugin_meta__ = PluginMetadata(
     name="漂流瓶",
